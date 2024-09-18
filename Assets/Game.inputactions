@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Skibidi",
+                    "type": "Button",
+                    "id": "bef60b0b-32fd-4c64-92c0-3ce1de100896",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -346,6 +355,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Forward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22ff5f96-1058-4fc3-a9ba-3d6c18dbdd90",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skibidi",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

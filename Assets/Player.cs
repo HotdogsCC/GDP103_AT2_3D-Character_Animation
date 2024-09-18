@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private float yVel = 0f;
 
     public float moveSpeed = 5f;
+    public float rotateSpeed = 0.1f;
     [Range(0f, 0.1f)]
     public float jumpHeight = 0.1f;
     public float accelSpeed = 1f;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         // Get the Animator component attached to the same GameObject
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -39,8 +41,8 @@ public class Player : MonoBehaviour
         animator.SetFloat("velocityY", moveVector.y);
 
         // Handle movement
-        Vector2 moveN = moveVector.normalized;
-        Vector3 move = new Vector3(moveVector.x, 0f, moveVector.y) * moveSpeed * Time.deltaTime;
+        //Vector3 move3 = new Vector3(moveVector.x, 0f, moveVector.y) * moveSpeed * Time.deltaTime;
+        Vector3 move = (transform.forward * moveVector.y + transform.right * moveVector.x) * moveSpeed * Time.deltaTime;
         characterController.Move(move);
 
         yVel += gravity * Time.deltaTime;
@@ -48,13 +50,17 @@ public class Player : MonoBehaviour
         {
             yVel = 0f;
         }
+
+        camPivot.transform.localEulerAngles = new Vector3(camPivot.transform.localEulerAngles.x - lookInput.y, camPivot.transform.localEulerAngles.y, camPivot.transform.localEulerAngles.z);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + lookInput.x, transform.localEulerAngles.z);
+
         characterController.Move(new Vector3(0, yVel, 0));
+
     }
 
     private void LateUpdate()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + lookInput.x, transform.rotation.z);
-        camPivot.transform.rotation = Quaternion.Euler(camPivot.transform.rotation.x + lookInput.y, camPivot.transform.rotation.y, camPivot.transform.rotation.z);
+        
     }
 
     private void Lerping()
@@ -132,6 +138,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("yipeeeee");
         lookInput = context.ReadValue<Vector2>();
+        lookInput *= rotateSpeed;
     }
     
     public void OnJump(InputAction.CallbackContext context)
@@ -144,5 +151,5 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
 }

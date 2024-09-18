@@ -543,7 +543,19 @@ MonoBehaviour:
     m_ActionId: e14c023f-acb8-487f-927e-8162968e9900
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1883558142}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1322ef92-19c5-496c-9a4b-3bba2631f37e
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
@@ -622,6 +634,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 747a6711-17d2-4e16-bd90-9e3b1fedf102
     m_ActionName: Player/Forward[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bef60b0b-32fd-4c64-92c0-3ce1de100896
+    m_ActionName: Player/Skibidi[/Keyboard/u]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -641,10 +657,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camPivot: {fileID: 1774411190}
   moveSpeed: 1.5
-  jumpHeight: 0.1
+  rotateSpeed: 0.1
+  jumpHeight: 0.0152
   accelSpeed: 5
   deccelSpeed: 5
-  gravity: -0.707
+  gravity: -0.22
 --- !u!143 &1883558145
 CharacterController:
   m_ObjectHideFlags: 0
