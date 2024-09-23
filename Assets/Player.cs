@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        
     }
 
     // Update is called once per frame
@@ -56,11 +59,6 @@ public class Player : MonoBehaviour
 
         characterController.Move(new Vector3(0, yVel, 0));
 
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     private void Lerping()
@@ -136,18 +134,30 @@ public class Player : MonoBehaviour
     }
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log("yipeeeee");
         lookInput = context.ReadValue<Vector2>();
         lookInput *= rotateSpeed;
     }
     
     public void OnJump(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         if(context.started)
         {
-            Debug.Log("2");
+            animator.SetTrigger("jump");
             yVel = Mathf.Sqrt(jumpHeight * -3f * gravity);
+        }
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            moveSpeed *= 2;
+            animator.SetFloat("speedMult", 2f);
+        }
+        else if (context.canceled)
+        {
+            moveSpeed /= 2;
+            animator.SetFloat("speedMult", 1f);
         }
     }
 

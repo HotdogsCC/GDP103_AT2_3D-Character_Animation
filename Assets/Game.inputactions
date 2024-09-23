@@ -51,9 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Skibidi",
+                    "name": "Sprint",
                     "type": "Button",
-                    "id": "bef60b0b-32fd-4c64-92c0-3ce1de100896",
+                    "id": "260a72a6-9ee7-451c-89a9-1b94a5cd5dda",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -360,12 +360,12 @@
                 },
                 {
                     "name": "",
-                    "id": "22ff5f96-1058-4fc3-a9ba-3d6c18dbdd90",
-                    "path": "<Keyboard>/u",
+                    "id": "4aaf7106-45fc-4d02-8c91-241832364209",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Skibidi",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
