@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,10 +28,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         // Get the Animator component attached to the same GameObject
-        animator = GetComponent<Animator>();
-        characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        characterController = GetComponentInChildren<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-
         
     }
 
@@ -55,9 +55,9 @@ public class Player : MonoBehaviour
         }
 
         camPivot.transform.localEulerAngles = new Vector3(camPivot.transform.localEulerAngles.x - lookInput.y, camPivot.transform.localEulerAngles.y, camPivot.transform.localEulerAngles.z);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + lookInput.x, transform.localEulerAngles.z);
-
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + lookInput.x, transform.localEulerAngles.z); 
         characterController.Move(new Vector3(0, yVel, 0));
+        camPivot.transform.position = new Vector3(characterController.transform.position.x, characterController.transform.position.y + 1.59f, characterController.transform.position.z);
 
     }
 

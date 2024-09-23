@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RagTrigger : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("hi");
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("yo");
+        if(other.tag == "Player")
+        {
+            other.GetComponent<Animator>().enabled = false;
+            GameObject.FindGameObjectWithTag("playerCam").SetActive(false);
+        }
     }
 }
