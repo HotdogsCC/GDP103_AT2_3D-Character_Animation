@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private Animator animator;
-    private Vector2 moveInput;
+    private Vector2 moveInput; 
     private Vector2 lookInput;
     private CharacterController characterController;
     [SerializeField] private GameObject camPivot;
@@ -44,23 +44,29 @@ public class Player : MonoBehaviour
         animator.SetFloat("velocityY", moveVector.y);
 
         // Handle movement
-        //Vector3 move3 = new Vector3(moveVector.x, 0f, moveVector.y) * moveSpeed * Time.deltaTime;
         Vector3 move = (transform.forward * moveVector.y + transform.right * moveVector.x) * moveSpeed * Time.deltaTime;
         characterController.Move(move);
 
+        //Handle gravity
         yVel += gravity * Time.deltaTime;
         if (characterController.isGrounded && yVel < 0)
         {
             yVel = 0f;
         }
 
+        //Rotates camera pivot for Up and Down movement
         camPivot.transform.localEulerAngles = new Vector3(camPivot.transform.localEulerAngles.x - lookInput.y, camPivot.transform.localEulerAngles.y, camPivot.transform.localEulerAngles.z);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + lookInput.x, transform.localEulerAngles.z); 
+        
+        //Rotates player for Left and Right movement
         characterController.Move(new Vector3(0, yVel, 0));
         camPivot.transform.position = new Vector3(characterController.transform.position.x, characterController.transform.position.y + 1.59f, characterController.transform.position.z);
 
     }
 
+
+    //Lerps the players movement speed
+    //This stops the jitteriness that would occur otherwise
     private void Lerping()
     {
         if (moveInput.x != 0)
@@ -115,49 +121,41 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Method to handle the Clap action started
-    public void OnClap(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            animator.SetBool("clapping", true);
-        }
-        else if (context.canceled)
-        {
-            animator.SetBool("clapping", false);
-        }
-    }
-
+    //Reads movement input (WASD)
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
+
+    //Reads look input (Mouse)
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
         lookInput *= rotateSpeed;
     }
     
+    //Runs when Jump is pressed (space)
     public void OnJump(InputAction.CallbackContext context)
     {
         if(context.started)
         {
             animator.SetTrigger("jump");
-            yVel = Mathf.Sqrt(jumpHeight * -3f * gravity);
+            yVel = Mathf.Sqrt(jumpHeight * -3f * gravity); //Sets jump velocity
         }
     }
 
+    //Runs when sprinting (Shift)
     public void OnSprint(InputAction.CallbackContext context)
     {
         if(context.started)
         {
-            moveSpeed *= 2;
-            animator.SetFloat("speedMult", 2f);
+            moveSpeed *= 2; //Increases player speed
+            animator.SetFloat("speedMult", 2f); //Increases animation speed
         }
         else if (context.canceled)
         {
-            moveSpeed /= 2;
-            animator.SetFloat("speedMult", 1f);
+            moveSpeed /= 2; //Increases player speed
+            animator.SetFloat("speedMult", 1f); //Increases animation speed
         }
     }
 
